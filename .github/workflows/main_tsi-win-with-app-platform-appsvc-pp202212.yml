@@ -8,6 +8,10 @@ on:
     branches:
       - main
   workflow_dispatch:
+  
+env:                        # <<-- Add environment variables here
+  REACT_APP_API_URL: 'https://tsi-win-with-app-platform-apiservice-pp202212.azure-api.net/<api>'     # <<-- referencing the GitHub secrets
+  REACT_APP_API_KEY: '<key>'     # <<-- created in Step 2
 
 jobs:
   build:
