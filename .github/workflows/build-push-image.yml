@@ -18,14 +18,23 @@ jobs:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
         
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag humongous-healthcare-api:$GITHUB_RUN_ID
-      
-      # Log in to Docker with service principal credentials
-    - name: login to ACR
-      run: docker login daiworkshopacrkpan.azurecr.io --username cd3c2b26-cef0-4435-88bc-fb23a8b28672 --password $SP_PASSWORD
-        
+      run: docker build . --file Dockerfile --tag humongous-healthcare-api:$GITHUB_RUN_ID 
+    
     - name: Tag the docker image
       run: docker tag humongous-healthcare-api:$GITHUB_RUN_ID daiworkshopacrkpan.azurecr.io/humongous-healthcare-api:$GITHUB_RUN_ID
-
-    - name: Push the image
-      run: docker push daiworkshopacrkpan.azurecr.io/humongous-healthcare-api:$GITHUB_RUN_ID
+    
+    - name: Docker Login
+      uses: docker/login-action@v2.1.0
+      with:
+        # Server address of Docker registry. If not set then will default to Docker Hub
+        registry: daiworkshopacrkpan.azurecr.io
+        # Username used to log against the Docker registry
+        username: cd3c2b26-cef0-4435-88bc-fb23a8b28672
+        # Password or personal access token used to log against the Docker registry
+        password: ${{ SP_PASSWORD }}
+        
+    - name: Build and push Docker images
+      uses: docker/build-push-action@v3.2.0
+      with:
+        push: daiworkshopacrkpan.azurecr.io/humongous-healthcare-api:${{ GITHUB_RUN_ID }}
+  
