@@ -18,10 +18,10 @@ jobs:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
         
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag humongous-healthcare-api:${{ env.GITHUB_RUN_ID }}
+      run: docker build . --file Dockerfile --tag humongous-healthcare-api:$GITHUB_RUN_ID
         
     - name: Tag the docker image
-      run: docker tag humongous-healthcare-api:${{ env.GITHUB_RUN_ID }} daiworkshopacrkpan.azurecr.io/humongous-healthcare-api:${{ env.GITHUB_RUN_ID }}
+      run: docker tag humongous-healthcare-api:$GITHUB_RUN_ID daiworkshopacrkpan.azurecr.io/humongous-healthcare-api:$GITHUB_RUN_ID
 
     - name: Push the image
-      run: docker push daiworkshopacrkpan.azurecr.io/humongous-healthcare-api:${{ env.GITHUB_RUN_ID }}
+      run: docker push daiworkshopacrkpan.azurecr.io/humongous-healthcare-api:$GITHUB_RUN_ID
