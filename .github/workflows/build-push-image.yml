@@ -19,6 +19,10 @@ jobs:
         
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag humongous-healthcare-api:$GITHUB_RUN_ID
+      
+      # Log in to Docker with service principal credentials
+    - name: login to ACR
+      run: docker login daiworkshopacrkpan.azurecr.io
         
     - name: Tag the docker image
       run: docker tag humongous-healthcare-api:$GITHUB_RUN_ID daiworkshopacrkpan.azurecr.io/humongous-healthcare-api:$GITHUB_RUN_ID
