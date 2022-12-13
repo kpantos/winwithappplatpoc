@@ -33,8 +33,6 @@ jobs:
         # Password or personal access token used to log against the Docker registry
         password: ${{ secrets.SP_PASSWORD }}
         
-    - name: Build and push Docker images
-      uses: docker/build-push-action@v3.2.0
-      with:
-        push: daiworkshopacrkpan.azurecr.io/humongous-healthcare-api:${{ env.GITHUB_RUN_ID }}
+    - name: Push the image
+      run: docker push daiworkshopacrkpan.azurecr.io/humongous-healthcare-api:$GITHUB_RUN_ID
   
