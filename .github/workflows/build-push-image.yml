@@ -22,7 +22,7 @@ jobs:
       
       # Log in to Docker with service principal credentials
     - name: login to ACR
-      run: docker login daiworkshopacrkpan.azurecr.io
+      run: docker login daiworkshopacrkpan.azurecr.io --username cd3c2b26-cef0-4435-88bc-fb23a8b28672 --password $SP_PASSWORD
         
     - name: Tag the docker image
       run: docker tag humongous-healthcare-api:$GITHUB_RUN_ID daiworkshopacrkpan.azurecr.io/humongous-healthcare-api:$GITHUB_RUN_ID
