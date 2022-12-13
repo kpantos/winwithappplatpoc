@@ -31,10 +31,10 @@ jobs:
         # Username used to log against the Docker registry
         username: cd3c2b26-cef0-4435-88bc-fb23a8b28672
         # Password or personal access token used to log against the Docker registry
-        password: ${{ SP_PASSWORD }}
+        password: ${{ secrets.SP_PASSWORD }}
         
     - name: Build and push Docker images
       uses: docker/build-push-action@v3.2.0
       with:
-        push: daiworkshopacrkpan.azurecr.io/humongous-healthcare-api:${{ GITHUB_RUN_ID }}
+        push: daiworkshopacrkpan.azurecr.io/humongous-healthcare-api:${{ env.GITHUB_RUN_ID }}
   
