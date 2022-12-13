@@ -3,12 +3,16 @@ name: Build and push Image
 on:
   workflow_dispatch:
 
+env:
+  VERSION: $(date +%s)
+  
 jobs:
   build:
     runs-on: ubuntu-latest
     defaults:                                             # <<-- Add default working directory
       run:                                                # <<-- here to ensure deployment 
         working-directory: ./Humongous.Healthcare/
+        
     steps:
     - uses: actions/checkout@v3
     
@@ -17,10 +21,10 @@ jobs:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
         
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag humongous-healthcare-api:$(date +%s)
+      run: docker build . --file Dockerfile --tag humongous-healthcare-api:$VERSION
         
     - name: Tag the docker image
-      run: docker tag humongous-healthcare-api:$(date +%s) daiworkshopacrkpan.azurecr.io/humongous-healthcare-api:$(date +%s)
+      run: docker tag humongous-healthcare-api:$VERSION daiworkshopacrkpan.azurecr.io/humongous-healthcare-api:$VERSION
 
     - name: Push the image
-      run: docker push daiworkshopacrkpan.azurecr.io/humongous-healthcare-api:$(date +%s)
+      run: docker push daiworkshopacrkpan.azurecr.io/humongous-healthcare-api:$VERSION
